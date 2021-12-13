@@ -2,7 +2,7 @@ import * as React from 'react';
 import { AppBar, Avatar, IconButton, Menu, MenuItem, Toolbar, Tooltip, Typography } from '@mui/material';
 import { User } from '../models';
 
-export default ({ user = null }: { user?: null | User }) => {
+export default ({ user }: { user: null | User }) => {
     const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
     const handleCloseUserMenu = () => {
         setAnchorElUser(null);
