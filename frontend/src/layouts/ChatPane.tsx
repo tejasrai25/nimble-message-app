@@ -51,7 +51,7 @@ export default () => {
     }, [messages]);
     return (
         <Grid container>
-            <Stack spacing={2} sx={{ height: '90vh', overflow: 'auto', padding: '10px', backgroundColor: 'grey.100' }}>
+            <Stack spacing={2} sx={{ height: '80vh', overflow: 'auto', padding: '10px', backgroundColor: 'grey.100' }}>
                 {messages.map((message) => {
                     const { id, ...messageProps } = message
                     return <ChatMessage key={`chat-${message.id}`} {...messageProps} />
