@@ -5,7 +5,7 @@ import ChatPane from './ChatPane';
 
 export default () => {
     return (
-        <Grid container>
+        <Grid container spacing={2}>
             <Grid item xs={4}>
                 <ContactList />
             </Grid>
