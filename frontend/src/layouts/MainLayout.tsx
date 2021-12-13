@@ -1,11 +1,11 @@
 import * as React from 'react';
-import Grid from '@mui/material/Grid';
+import { Grid } from '@mui/material';
 import ContactList from './ContactList';
 import ChatPane from './ChatPane';
 
 export default () => {
     return (
-        <Grid container spacing={2}>
+        <Grid container spacing={0}>
             <Grid item xs={4}>
                 <ContactList />
             </Grid>
