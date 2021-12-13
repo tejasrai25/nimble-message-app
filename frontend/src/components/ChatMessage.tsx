@@ -25,8 +25,10 @@ export default ({ message, sender, sentTime }: { message: string, sender: string
                         <Grid item xs={12}>
                             <PaddedText variant='body2'>{message}</PaddedText>
                         </Grid>
-                        <Grid container justifyContent={'flex-end'}>
-                            <Grid container xs={6} justifyContent={'flex-end'}>
+                    </Grid>
+                    <Grid container justifyContent={'flex-end'}>
+                        <Grid item xs={6} >
+                            <Grid container justifyContent={'flex-end'}>
                                 <PaddedText variant='caption' align='right'>{`${sentTime.toLocaleDateString()} ${sentTime.toLocaleTimeString()}`}</PaddedText>
                             </Grid>
                         </Grid>
