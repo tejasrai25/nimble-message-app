@@ -13,5 +13,7 @@
 			"name": "backend"
 		},
 	],
-	"settings": {}
+	"settings": {
+		"editor.formatOnSave": true
+	}
 }

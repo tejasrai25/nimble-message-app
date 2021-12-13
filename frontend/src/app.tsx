@@ -1,8 +1,9 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
+import MainLayout from './layouts/MainLayout';
 
 function render() {
-  ReactDOM.render(<h2>Hello from React!</h2>, document.body);
+  ReactDOM.render(<MainLayout />, document.getElementById("root"));
 }
 
 render();
