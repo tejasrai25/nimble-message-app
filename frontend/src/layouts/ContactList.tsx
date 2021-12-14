@@ -3,8 +3,8 @@ import { Avatar, Grid, List, ListItem, ListItemAvatar, ListItemButton, ListItemT
 import { User } from '../models';
 import { authFetch } from '../auth';
 
-export default ({ selected, setSelected }:
-    { selected: string, setSelected: React.Dispatch<React.SetStateAction<string>> }) => {
+const ContactList = ({ selectedContact, setSelectedContact }:
+    { selectedContact: string, setSelectedContact: React.Dispatch<React.SetStateAction<string>> }) => {
 
     const [contacts, setContacts] = React.useState<User[]>([]);
 
@@ -21,7 +21,7 @@ export default ({ selected, setSelected }:
                     <List>
                         {contacts.map((contact) => (
                             <ListItem key={`contact-${contact.username}`} disablePadding>
-                                <ListItemButton selected={contact.username === selected} onClick={() => { setSelected(contact.username) }}>
+                                <ListItemButton selected={contact.username === selectedContact} onClick={() => { setSelectedContact(contact.username) }}>
                                     <ListItemAvatar>
                                         <Avatar>{contact.name ? contact.name[0] : 'U'}</Avatar>
                                     </ListItemAvatar>
@@ -35,3 +35,5 @@ export default ({ selected, setSelected }:
         </Grid>
     )
 }
+
+export default ContactList
