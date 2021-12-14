@@ -5,6 +5,7 @@ from datetime import datetime
 POSTGRES_DB = os.getenv('POSTGRES_DBNAME', 'postgres')
 POSTGRES_USER = os.getenv('POSTGRES_USER', 'postgres')
 POSTGRES_PASSWORD = os.getenv('POSTGRES_PASSWORD', 'postgres')
+POSTGRES_HOST = os.getenv('POSTGRES_HOST', 'localhost')
 POSTGRES_PORT = os.getenv('POSTGRES_PORT', '5432')
 
 
@@ -12,7 +13,7 @@ db = PostgresqlDatabase(
     POSTGRES_DB,
     user=POSTGRES_USER,
     password=POSTGRES_PASSWORD,
-    host='localhost',
+    host=POSTGRES_HOST,
     port=int(POSTGRES_PORT)
 )
 
