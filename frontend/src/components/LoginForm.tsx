@@ -2,13 +2,19 @@ import { Alert, Button, Grid, Snackbar, Stack, TextField } from '@mui/material';
 import * as React from 'react';
 import { login } from '../auth';
 
-
+// component for login and register forms
 const LoginForm = (): JSX.Element => {
+    // state to check if register is active
     const [register, setRegister] = React.useState(false);
+    // state to store name field's value
     const [fullName, setFullName] = React.useState('');
+    // state to store username field's value
     const [username, setUsername] = React.useState('');
+    // state to store password field's value
     const [password, setPassword] = React.useState('');
+    // state to store snackbar's value
     const [snackbar, setSnackbar] = React.useState('');
+    // state to store error message
     const [error, setError] = React.useState('');
 
     const exitRegister = ({ snackbar }: { snackbar: boolean }) => {

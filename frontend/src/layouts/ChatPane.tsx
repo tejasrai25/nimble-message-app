@@ -5,9 +5,15 @@ import ChatBox from '../components/ChatBox';
 import { Message, ResponseMessage } from '../models';
 import { authFetch, getSessionState } from '../auth';
 
+// Component for the right pane with messages list, text box and send button
 const ChatPane = ({ selectedContact }: { selectedContact: string }): JSX.Element => {
+    // state to maintain list of messages
     const [messages, setMessages] = React.useState<Message[]>([]);
+
+    // get currentUser details from auth store
     const currentUser = getSessionState();
+
+    // hook that fetches messages in a 100ms interval
     React.useEffect(() => {
         let interval: NodeJS.Timer;
         if (selectedContact) {
@@ -28,7 +34,9 @@ const ChatPane = ({ selectedContact }: { selectedContact: string }): JSX.Element
         };
     }, [selectedContact]);
 
+    // ref to achieve scroll to bottom when new message is received
     const scrollRef = React.useRef<HTMLDivElement>(null);
+    // hook to scroll to bottom when a new message is added to messages
     React.useEffect(() => {
         if (scrollRef.current) {
             scrollRef.current.scrollIntoView();

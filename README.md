@@ -12,6 +12,7 @@ nimble-message-app is a chat application built by Tejas Rai for nimble.ai's hack
 - DB: postgresql
 - Deployment: Docker + docker-compose
 - API scheme: REST
+- Backend Dependency Manager: Pipenv
 
 ### Installation
 #### Frontend

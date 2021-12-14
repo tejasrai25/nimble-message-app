@@ -3,6 +3,7 @@ import { AppBar, Avatar, IconButton, Menu, MenuItem, Toolbar, Tooltip, Typograph
 import { User } from '../models';
 import { logout } from '../auth';
 
+// app bar at the top of the page
 const TopBar = ({ user }: { user: null | User }): JSX.Element => {
     const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
     const handleCloseUserMenu = () => {

@@ -3,6 +3,7 @@ import { Avatar, Grid, List, ListItem, ListItemAvatar, ListItemButton, ListItemT
 import { User } from '../models';
 import { authFetch } from '../auth';
 
+// Component for the the left pane that shows available contacts
 const ContactList = (
     { selectedContact, setSelectedContact }:
         {
@@ -10,8 +11,10 @@ const ContactList = (
             setSelectedContact: React.Dispatch<React.SetStateAction<string>>
         }): JSX.Element => {
 
+    // state to store list of contacts
     const [contacts, setContacts] = React.useState<User[]>([]);
 
+    // on mount hook to get contacts
     React.useEffect(() => {
         authFetch('http://localhost:5000/api/users')
             .then(r => r.json())
