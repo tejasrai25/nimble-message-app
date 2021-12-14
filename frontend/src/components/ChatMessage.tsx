@@ -1,23 +1,23 @@
 import * as React from 'react';
 import { Paper, Typography, Grid } from '@mui/material';
 import { styled } from '@mui/material/styles';
+import { getSessionState } from '../auth';
 
-const Chat = (sentMessage: boolean) => (styled(Paper)(({ theme }) => ({
+const Chat = (styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
     color: theme.palette.text.primary,
-    backgroundColor: sentMessage ? theme.palette.primary.light : theme.palette.grey[200],
 })));
 
 const PaddedText = styled(Typography)(() => ({
     padding: '5px'
 }));
 
-export default ({ message, sender, sentTime }: { message: string, sender: string, sentTime: Date }) => {
-    const ColoredChat = Chat(sender === 'me')
+const ChatMessage = ({ message, sender, sentTime }: { message: string, sender: string, sentTime: Date }) => {
+    const currentUser = getSessionState()
     return (
-        <Grid container justifyContent={sender === 'me' ? 'flex-end' : 'flex-start'}>
+        <Grid container justifyContent={sender === currentUser?.username ? 'flex-end' : 'flex-start'}>
             <Grid item xs={5} >
-                <ColoredChat elevation={3}>
+                <Chat elevation={3} sx={{ backgroundColor: sender === currentUser?.username ? 'primary.light' : 'palette.grey.200' }}>
                     <Grid container justifyContent={'flex-start'}>
                         <Grid item xs={6} >
                             <PaddedText variant='caption' >{sender}</PaddedText>
@@ -33,8 +33,10 @@ export default ({ message, sender, sentTime }: { message: string, sender: string
                             </Grid>
                         </Grid>
                     </Grid>
-                </ColoredChat >
+                </Chat >
             </Grid >
         </Grid >
     )
 }
+
+export default ChatMessage
