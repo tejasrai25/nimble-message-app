@@ -23,8 +23,8 @@ export default () => {
         fetch('http://localhost:5000/api/users', {
             method: 'post',
             body: JSON.stringify({ name: fullName.trim(), username: username.trim(), password: password.trim() })
-        }
-        ).then(r => r.json())
+        })
+            .then(r => r.json())
             .then(result => {
                 if (result.username) {
                     exitRegister({ snackbar: true })
