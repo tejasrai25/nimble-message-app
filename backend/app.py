@@ -1,4 +1,4 @@
-from flask import Flask, request
+from flask import Flask, request, jsonify
 import flask_praetorian
 from peewee import IntegrityError
 from schema import db, User
@@ -56,6 +56,18 @@ def register():
         return {'id': user.id, 'username': user.username, 'name': user.name}, 201
     except IntegrityError:
         return {'error': 'IntegrityError', 'message': 'The username is already in use'}, 400
+
+
+@app.route('/api/users', methods=['GET'])
+@flask_praetorian.auth_required
+def fetch_users():
+    '''
+    Fetch all users
+    '''
+    current_user = flask_praetorian.current_user().username
+    users = [{'id': user.id, 'username': user.username, 'name': user.name}
+             for user in User.select() if user.username != current_user]
+    return jsonify(users), 200
 
 
 @app.route('/')
