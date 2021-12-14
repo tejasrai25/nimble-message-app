@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { AppBar, Avatar, IconButton, Menu, MenuItem, Toolbar, Tooltip, Typography } from '@mui/material';
 import { User } from '../models';
+import { logout } from '../auth';
 
 export default ({ user }: { user: null | User }) => {
     const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
@@ -42,7 +43,11 @@ export default ({ user }: { user: null | User }) => {
                     open={Boolean(anchorElUser)}
                     onClose={handleCloseUserMenu}
                 >
-                    <MenuItem onClick={handleCloseUserMenu}>
+                    <MenuItem
+                        onClick={() => {
+                            logout()
+                            handleCloseUserMenu()
+                        }}>
                         <Typography textAlign="center">Logout</Typography>
                     </MenuItem>
                 </Menu>

@@ -1,5 +1,6 @@
 import { Alert, Button, Grid, Snackbar, Stack, TextField } from '@mui/material';
 import * as React from 'react';
+import { login } from '../auth';
 
 
 export default () => {
@@ -7,12 +8,12 @@ export default () => {
     const [fullName, setFullName] = React.useState('');
     const [username, setUsername] = React.useState('');
     const [password, setPassword] = React.useState('');
-    const [showSnackbar, setShowSnackbar] = React.useState(false);
+    const [snackbar, setSnackbar] = React.useState('');
     const [error, setError] = React.useState('');
 
     const exitRegister = ({ snackbar }: { snackbar: boolean }) => {
         if (snackbar) {
-            setShowSnackbar(true)
+            setSnackbar('User Registered Successfully!')
         }
         setRegister(false)
         setFullName('')
@@ -33,6 +34,22 @@ export default () => {
                 }
             })
     }
+
+    const loginUser = () => {
+        fetch('http://localhost:5000/login', {
+            method: 'post',
+            body: JSON.stringify({ username: username.trim(), password: password.trim() })
+        }).then(r => r.json())
+            .then(result => {
+                if (result.access_token) {
+                    login(result)
+                }
+                else if (result.error) {
+                    setError(result.message)
+                }
+            })
+    }
+
     return (
         <Grid
             container
@@ -79,6 +96,7 @@ export default () => {
                         variant='contained'
                         onClick={() => {
                             setError('')
+                            loginUser()
                         }}
                     >
                         Login
@@ -100,9 +118,9 @@ export default () => {
                     >
                         Back to Login
                     </Button>}
-                    <Snackbar open={showSnackbar} autoHideDuration={6000} onClose={() => { setShowSnackbar(false) }}>
+                    <Snackbar open={Boolean(snackbar)} autoHideDuration={6000} onClose={() => { setSnackbar('') }}>
                         <Alert severity="success" sx={{ width: '100%' }}>
-                            User Registered Successfully!
+                            {snackbar}
                         </Alert>
                     </Snackbar>
                 </Stack>

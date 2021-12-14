@@ -5,13 +5,15 @@ import ChatPane from './ChatPane';
 import TopBar from './TopBar';
 import { User } from '../models';
 import LoginForm from '../components/LoginForm';
+import { useAuth, getSessionState } from '../auth';
 
 export default () => {
-    const [currentUser, setCurrentUser] = React.useState<User | null>(null);
+    const [loggedIn] = useAuth();
+    const currentUser = getSessionState();
     return (
         <>
             <TopBar user={currentUser} />
-            {currentUser &&
+            {loggedIn &&
                 <Grid container spacing={0}>
                     <Grid item xs={4}>
                         <ContactList />
@@ -21,7 +23,7 @@ export default () => {
                     </Grid>
                 </Grid>
             }
-            {!currentUser &&
+            {!loggedIn &&
                 <LoginForm />
             }
         </>

@@ -39,8 +39,13 @@ def login():
     req = request.get_json(force=True)
     username = req.get('username', None)
     password = req.get('password', None)
-    user = guard.authenticate(username, password)
-    ret = {'access_token': guard.encode_jwt_token(user)}
+    user: User = guard.authenticate(username, password)
+    ret = {
+        'access_token': guard.encode_jwt_token(user),
+        'id': user.id,
+        'username': user.username,
+        'name': user.name
+    }
     return ret, 200
 
 
