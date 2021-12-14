@@ -2,8 +2,12 @@ from flask import Flask, request, jsonify
 import flask_praetorian
 from peewee import IntegrityError
 from schema import db, User, Message
+from flask_cors import CORS
 
 app = Flask(__name__)
+
+# Allow CORS
+CORS(app)
 
 # Add JWT Token plugin
 guard = flask_praetorian.Praetorian()
@@ -49,6 +53,8 @@ def register():
     username = req.get('username')
     password = req.get('password')
     name = req.get('name')
+    if not username or not password or not name:
+        return {'error': 'ValueError', 'message': 'All fields are required.'}, 400
     try:
         user = User.create(username=username,
                            password=guard.hash_password(password),
