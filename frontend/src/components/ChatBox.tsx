@@ -18,10 +18,10 @@ const ChatBox = ({ selectedContact }: { selectedContact: string }): JSX.Element 
             .then(r => r.json())
             .then(result => {
                 if (result.id) {
-                    setValue('')
+                    setValue('');
                 }
-            })
-    }
+            });
+    };
 
     return (
         <Stack direction="row" spacing={2} style={{ width: '100%', padding: '5px' }}>
@@ -42,7 +42,7 @@ const ChatBox = ({ selectedContact }: { selectedContact: string }): JSX.Element 
                 Send
             </Button>
         </Stack >
-    )
-}
+    );
+};
 
-export default ChatBox
+export default ChatBox;

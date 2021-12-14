@@ -13,7 +13,7 @@ const PaddedText = styled(Typography)(() => ({
 }));
 
 const ChatMessage = ({ message, sender, sentTime }: { message: string, sender: string, sentTime: Date }): JSX.Element => {
-    const ColoredChat = Chat(sender === 'me')
+    const ColoredChat = Chat(sender === 'me');
     return (
         <Grid container justifyContent={sender === 'me' ? 'flex-end' : 'flex-start'}>
             <Grid item xs={5} >
@@ -36,7 +36,7 @@ const ChatMessage = ({ message, sender, sentTime }: { message: string, sender: s
                 </ColoredChat >
             </Grid >
         </Grid >
-    )
-}
+    );
+};
 
-export default ChatMessage
+export default ChatMessage;

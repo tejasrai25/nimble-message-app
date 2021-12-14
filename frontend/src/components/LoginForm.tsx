@@ -2,22 +2,28 @@ import { Alert, Button, Grid, Snackbar, Stack, TextField } from '@mui/material';
 import * as React from 'react';
 import { login } from '../auth';
 
-
+// component for login and register forms
 const LoginForm = (): JSX.Element => {
+    // state to check if register is active
     const [register, setRegister] = React.useState(false);
+    // state to store name field's value
     const [fullName, setFullName] = React.useState('');
+    // state to store username field's value
     const [username, setUsername] = React.useState('');
+    // state to store password field's value
     const [password, setPassword] = React.useState('');
+    // state to store snackbar's value
     const [snackbar, setSnackbar] = React.useState('');
+    // state to store error message
     const [error, setError] = React.useState('');
 
     const exitRegister = ({ snackbar }: { snackbar: boolean }) => {
         if (snackbar) {
-            setSnackbar('User Registered Successfully!')
+            setSnackbar('User Registered Successfully!');
         }
-        setRegister(false)
-        setFullName('')
-    }
+        setRegister(false);
+        setFullName('');
+    };
 
     const registerUser = () => {
         fetch('http://localhost:5000/api/users', {
@@ -27,13 +33,13 @@ const LoginForm = (): JSX.Element => {
             .then(r => r.json())
             .then(result => {
                 if (result.username) {
-                    exitRegister({ snackbar: true })
+                    exitRegister({ snackbar: true });
                 }
                 else if (result.error) {
-                    setError(result.message)
+                    setError(result.message);
                 }
-            })
-    }
+            });
+    };
 
     const loginUser = () => {
         fetch('http://localhost:5000/login', {
@@ -42,13 +48,13 @@ const LoginForm = (): JSX.Element => {
         }).then(r => r.json())
             .then(result => {
                 if (result.access_token) {
-                    login(result)
+                    login(result);
                 }
                 else if (result.error) {
-                    setError(result.message)
+                    setError(result.message);
                 }
-            })
-    }
+            });
+    };
 
     return (
         <Grid
@@ -73,14 +79,14 @@ const LoginForm = (): JSX.Element => {
                         label="Name"
                         variant="filled"
                         value={fullName}
-                        onChange={(event) => { setFullName(event.target.value) }}
+                        onChange={(event) => { setFullName(event.target.value); }}
                         error={Boolean(error)}
                     />}
                     <TextField
                         label="Username"
                         variant="filled"
                         value={username}
-                        onChange={(event) => { setUsername(event.target.value) }}
+                        onChange={(event) => { setUsername(event.target.value); }}
                         error={Boolean(error)}
                     />
                     <TextField
@@ -88,15 +94,15 @@ const LoginForm = (): JSX.Element => {
                         variant="filled"
                         type={'password'}
                         value={password}
-                        onChange={(event) => { setPassword(event.target.value) }}
+                        onChange={(event) => { setPassword(event.target.value); }}
                         error={Boolean(error)}
                         helperText={error ? error : ''}
                     />
                     {!register && <Button
                         variant='contained'
                         onClick={() => {
-                            setError('')
-                            loginUser()
+                            setError('');
+                            loginUser();
                         }}
                     >
                         Login
@@ -104,21 +110,21 @@ const LoginForm = (): JSX.Element => {
                     <Button
                         variant={register ? 'contained' : undefined}
                         onClick={() => {
-                            setError('')
-                            register ? registerUser() : setRegister(true)
+                            setError('');
+                            register ? registerUser() : setRegister(true);
                         }}
                     >
                         Register
                     </Button>
                     {register && <Button
                         onClick={() => {
-                            setError('')
-                            exitRegister({ snackbar: false })
+                            setError('');
+                            exitRegister({ snackbar: false });
                         }}
                     >
                         Back to Login
                     </Button>}
-                    <Snackbar open={Boolean(snackbar)} autoHideDuration={6000} onClose={() => { setSnackbar('') }}>
+                    <Snackbar open={Boolean(snackbar)} autoHideDuration={6000} onClose={() => { setSnackbar(''); }}>
                         <Alert severity="success" sx={{ width: '100%' }}>
                             {snackbar}
                         </Alert>
@@ -126,7 +132,7 @@ const LoginForm = (): JSX.Element => {
                 </Stack>
             </Grid>
         </Grid >
-    )
-}
+    );
+};
 
-export default LoginForm
+export default LoginForm;

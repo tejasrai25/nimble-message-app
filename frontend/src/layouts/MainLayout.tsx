@@ -6,10 +6,14 @@ import ChatPane from './ChatPane';
 import ContactList from './ContactList';
 import TopBar from './TopBar';
 
+// The main layout component
 const MainLayout = (): JSX.Element => {
+    // get login status from auth hook
     const [loggedIn] = useAuth();
+    // get currentUser details from auth store
     const currentUser = getSessionState();
 
+    // state to manage active chat
     const [selectedContact, setSelectedContact] = React.useState('');
 
     return (
@@ -30,6 +34,6 @@ const MainLayout = (): JSX.Element => {
             }
         </>
     );
-}
+};
 
-export default MainLayout
+export default MainLayout;
