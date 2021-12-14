@@ -3,7 +3,7 @@ import { AppBar, Avatar, IconButton, Menu, MenuItem, Toolbar, Tooltip, Typograph
 import { User } from '../models';
 import { logout } from '../auth';
 
-export default ({ user }: { user: null | User }) => {
+const TopBar = ({ user }: { user: null | User }) => {
     const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
     const handleCloseUserMenu = () => {
         setAnchorElUser(null);
@@ -24,7 +24,7 @@ export default ({ user }: { user: null | User }) => {
                         aria-haspopup="true"
                         color="inherit"
                     >
-                        <Avatar>{user?.name}</Avatar>
+                        <Avatar>{user?.name[0]}</Avatar>
                     </IconButton>
                 </Tooltip>
                 <Menu
@@ -63,3 +63,5 @@ export default ({ user }: { user: null | User }) => {
         </AppBar>
     )
 }
+
+export default TopBar
