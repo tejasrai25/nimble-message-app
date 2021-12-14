@@ -1,7 +1,8 @@
 import { createAuthProvider } from 'react-token-auth';
-import { User } from '../models';
+import { AuthenticatedUser } from '../models';
 
 export const { useAuth, authFetch, login, logout, getSessionState } =
-    createAuthProvider<User>({
-        storageKey: 'access_token'
+    createAuthProvider<AuthenticatedUser>({
+        getAccessToken: (session) => (session['access_token']),
+        storageKey: 'access_token',
     });
