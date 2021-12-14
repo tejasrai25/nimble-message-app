@@ -30,6 +30,6 @@ const MainLayout = (): JSX.Element => {
             }
         </>
     );
-}
+};
 
-export default MainLayout
+export default MainLayout;

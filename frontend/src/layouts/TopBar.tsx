@@ -45,8 +45,8 @@ const TopBar = ({ user }: { user: null | User }): JSX.Element => {
                 >
                     <MenuItem
                         onClick={() => {
-                            logout()
-                            handleCloseUserMenu()
+                            logout();
+                            handleCloseUserMenu();
                         }}>
                         <Typography textAlign="center">Logout</Typography>
                     </MenuItem>
@@ -61,7 +61,7 @@ const TopBar = ({ user }: { user: null | User }): JSX.Element => {
                 </Typography>
             </Toolbar>
         </AppBar>
-    )
-}
+    );
+};
 
-export default TopBar
+export default TopBar;

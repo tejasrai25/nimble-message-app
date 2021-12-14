@@ -15,8 +15,8 @@ const ContactList = (
     React.useEffect(() => {
         authFetch('http://localhost:5000/api/users')
             .then(r => r.json())
-            .then(users => setContacts(users))
-    }, [])
+            .then(users => setContacts(users));
+    }, []);
 
     return (
         <Grid container>
@@ -25,7 +25,7 @@ const ContactList = (
                     <List>
                         {contacts.map((contact) => (
                             <ListItem key={`contact-${contact.username}`} disablePadding>
-                                <ListItemButton selected={contact.username === selectedContact} onClick={() => { setSelectedContact(contact.username) }}>
+                                <ListItemButton selected={contact.username === selectedContact} onClick={() => { setSelectedContact(contact.username); }}>
                                     <ListItemAvatar>
                                         <Avatar>{contact.name ? contact.name[0] : 'U'}</Avatar>
                                     </ListItemAvatar>
@@ -37,7 +37,7 @@ const ContactList = (
                 </Stack>
             </Grid>
         </Grid>
-    )
-}
+    );
+};
 
-export default ContactList
+export default ContactList;
