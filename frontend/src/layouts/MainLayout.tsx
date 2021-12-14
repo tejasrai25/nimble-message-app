@@ -6,7 +6,7 @@ import ChatPane from './ChatPane';
 import ContactList from './ContactList';
 import TopBar from './TopBar';
 
-const MainLayout = () => {
+const MainLayout = (): JSX.Element => {
     const [loggedIn] = useAuth();
     const currentUser = getSessionState();
 

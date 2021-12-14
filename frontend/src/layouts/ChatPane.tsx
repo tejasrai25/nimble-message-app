@@ -5,7 +5,7 @@ import ChatBox from '../components/ChatBox';
 import { Message, ResponseMessage } from '../models';
 import { authFetch, getSessionState } from '../auth';
 
-const ChatPane = ({ selectedContact }: { selectedContact: string }) => {
+const ChatPane = ({ selectedContact }: { selectedContact: string }): JSX.Element => {
     const [messages, setMessages] = React.useState<Message[]>([]);
     const currentUser = getSessionState()
     React.useEffect(() => {
@@ -40,7 +40,7 @@ const ChatPane = ({ selectedContact }: { selectedContact: string }) => {
                 {messages.map((message) => {
                     const { id, sender, ...messageProps } = message
                     const chatSender = sender === currentUser?.username ? 'me' : sender
-                    return <ChatMessage key={`chat-${message.id}`} sender={chatSender} {...messageProps} />
+                    return <ChatMessage key={`chat-${id}`} sender={chatSender} {...messageProps} />
                 })}
                 <div ref={scrollRef} style={{ height: 0 }}></div>
             </Stack>

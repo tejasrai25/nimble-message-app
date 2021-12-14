@@ -1,10 +1,14 @@
 import * as React from 'react';
-import { Avatar, Grid, List, ListItem, ListItemAvatar, ListItemButton, ListItemText, Paper, Stack } from '@mui/material';
+import { Avatar, Grid, List, ListItem, ListItemAvatar, ListItemButton, ListItemText, Stack } from '@mui/material';
 import { User } from '../models';
 import { authFetch } from '../auth';
 
-const ContactList = ({ selectedContact, setSelectedContact }:
-    { selectedContact: string, setSelectedContact: React.Dispatch<React.SetStateAction<string>> }) => {
+const ContactList = (
+    { selectedContact, setSelectedContact }:
+        {
+            selectedContact: string,
+            setSelectedContact: React.Dispatch<React.SetStateAction<string>>
+        }): JSX.Element => {
 
     const [contacts, setContacts] = React.useState<User[]>([]);
 

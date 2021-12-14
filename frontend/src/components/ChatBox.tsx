@@ -3,7 +3,7 @@ import { Button, Divider, Stack, TextField } from '@mui/material';
 import { authFetch } from '../auth';
 
 
-const ChatBox = ({ selectedContact }: { selectedContact: string }) => {
+const ChatBox = ({ selectedContact }: { selectedContact: string }): JSX.Element => {
 
     const [value, setValue] = React.useState('');
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -31,12 +31,12 @@ const ChatBox = ({ selectedContact }: { selectedContact: string }) => {
                 value={value}
                 onChange={handleChange}
                 style={{ width: '90%' }}
-                disabled={!Boolean(selectedContact)}
+                disabled={!selectedContact}
             />
             <Divider orientation="vertical" flexItem />
             <Button
                 variant='contained'
-                disabled={!Boolean(selectedContact) || value === ''}
+                disabled={!selectedContact || value === ''}
                 onClick={() => sendMessage()}
             >
                 Send

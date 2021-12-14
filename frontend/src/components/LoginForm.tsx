@@ -3,7 +3,7 @@ import * as React from 'react';
 import { login } from '../auth';
 
 
-export default () => {
+const LoginForm = (): JSX.Element => {
     const [register, setRegister] = React.useState(false);
     const [fullName, setFullName] = React.useState('');
     const [username, setUsername] = React.useState('');
@@ -128,3 +128,5 @@ export default () => {
         </Grid >
     )
 }
+
+export default LoginForm

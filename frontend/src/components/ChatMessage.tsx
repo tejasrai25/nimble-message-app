@@ -12,7 +12,7 @@ const PaddedText = styled(Typography)(() => ({
     padding: '5px'
 }));
 
-const ChatMessage = ({ message, sender, sentTime }: { message: string, sender: string, sentTime: Date }) => {
+const ChatMessage = ({ message, sender, sentTime }: { message: string, sender: string, sentTime: Date }): JSX.Element => {
     const ColoredChat = Chat(sender === 'me')
     return (
         <Grid container justifyContent={sender === 'me' ? 'flex-end' : 'flex-start'}>
