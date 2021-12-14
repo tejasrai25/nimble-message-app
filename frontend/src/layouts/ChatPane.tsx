@@ -7,7 +7,7 @@ import { authFetch, getSessionState } from '../auth';
 
 const ChatPane = ({ selectedContact }: { selectedContact: string }) => {
     const [messages, setMessages] = React.useState<Message[]>([]);
-
+    const currentUser = getSessionState()
     React.useEffect(() => {
         let interval: NodeJS.Timer
         if (selectedContact) {
@@ -39,12 +39,12 @@ const ChatPane = ({ selectedContact }: { selectedContact: string }) => {
             <Stack spacing={2} sx={{ height: '80vh', width: '100%', overflow: 'auto', padding: '10px', backgroundColor: 'grey.100' }}>
                 {messages.map((message) => {
                     const { id, sender, ...messageProps } = message
-                    const chatSender = sender === getSessionState()?.username ? 'me' : sender
+                    const chatSender = sender === currentUser?.username ? 'me' : sender
                     return <ChatMessage key={`chat-${message.id}`} sender={chatSender} {...messageProps} />
                 })}
                 <div ref={scrollRef} style={{ height: 0 }}></div>
             </Stack>
-            <ChatBox />
+            <ChatBox selectedContact={selectedContact} />
         </Grid >
     )
 }
