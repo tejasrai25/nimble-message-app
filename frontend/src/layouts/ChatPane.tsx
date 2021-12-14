@@ -2,59 +2,45 @@ import * as React from 'react';
 import { Grid, Stack } from '@mui/material';
 import ChatMessage from '../components/ChatMessage';
 import ChatBox from '../components/ChatBox';
-import { Message } from '../models';
+import { Message, ResponseMessage } from '../models';
+import { authFetch, getSessionState } from '../auth';
 
-export default () => {
-    const messages: Message[] = [
-        {
-            id: 1,
-            message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-            sender: 'Sabreesh',
-            sentTime: new Date(),
-        },
-        {
-            id: 2,
-            message: 'Lorem ipsum',
-            sender: 'me',
-            sentTime: new Date(),
-        },
-        {
-            id: 3,
-            message: 'Lorem ipsum sit',
-            sender: 'Sabreesh',
-            sentTime: new Date(),
-        },
-        {
-            id: 4,
-            message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-            sender: 'me',
-            sentTime: new Date(),
-        }, {
-            id: 5,
-            message: 'Lorem ipsum sit',
-            sender: 'Sabreesh',
-            sentTime: new Date(),
-        },
-        {
-            id: 6,
-            message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-            sender: 'me',
-            sentTime: new Date(),
-        },
-    ]
+const ChatPane = ({ selectedContact }: { selectedContact: string }) => {
+    const [messages, setMessages] = React.useState<Message[]>([]);
+
+    React.useEffect(() => {
+        let interval: NodeJS.Timer
+        if (selectedContact) {
+            interval = setInterval(() => {
+                authFetch(`http://localhost:5000/api/messages?user=${selectedContact}`)
+                    .then(r => r.json())
+                    .then(chats => {
+                        console.log(chats)
+                        setMessages(chats.map((chat: ResponseMessage) => ({ ...chat, sentTime: new Date(chat.sentTime) })))
+                    })
+
+            }, 100);
+        }
+        return () => {
+            if (selectedContact) {
+                clearInterval(interval);
+            }
+        }
+    }, [selectedContact]);
 
     const scrollRef = React.useRef<HTMLDivElement>(null);
     React.useEffect(() => {
         if (scrollRef.current) {
             scrollRef.current.scrollIntoView()
         }
-    }, [messages]);
+    }, [messages.length]);
     return (
         <Grid container>
-            <Stack spacing={2} sx={{ height: '80vh', overflow: 'auto', padding: '10px', backgroundColor: 'grey.100' }}>
+            <Stack spacing={2} sx={{ height: '80vh', width: '100%', overflow: 'auto', padding: '10px', backgroundColor: 'grey.100' }}>
                 {messages.map((message) => {
-                    const { id, ...messageProps } = message
-                    return <ChatMessage key={`chat-${message.id}`} {...messageProps} />
+                    const { id, sender, ...messageProps } = message
+                    const chatSender = sender === getSessionState()?.username ? 'me' : sender
+                    return <ChatMessage key={`chat-${message.id}`} sender={chatSender} {...messageProps} />
                 })}
                 <div ref={scrollRef} style={{ height: 0 }}></div>
             </Stack>
@@ -62,3 +48,5 @@ export default () => {
         </Grid >
     )
 }
+
+export default ChatPane
