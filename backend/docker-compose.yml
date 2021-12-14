@@ -1,5 +1,5 @@
 version: "3.9"
-   
+
 services:
   db:
     container_name: nimble-db
@@ -14,7 +14,7 @@ services:
     container_name: nimble-backend
     build: .
     ports:
-      - 8000:8000
+      - 5000:5000
     environment:
       POSTGRES_DBNAME: ${POSTGRES_DBNAME}
       POSTGRES_USER: ${POSTGRES_USER}
