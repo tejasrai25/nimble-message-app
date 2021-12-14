@@ -6,6 +6,11 @@ from flask_cors import CORS
 
 app = Flask(__name__)
 
+# init tables
+db.connect()
+if len(db.get_tables()) == 0:
+    db.create_tables([User, Message])
+
 # Allow CORS
 CORS(app)
 
@@ -21,11 +26,17 @@ guard.init_app(app, User)
 
 @app.before_request
 def before_request():
+    '''
+    connect to db before each request
+    '''
     db.connect()
 
 
 @app.after_request
 def after_request(response):
+    '''
+    disconnect db after each request
+    '''
     db.close()
     return response
 
