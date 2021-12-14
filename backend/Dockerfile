@@ -5,13 +5,14 @@ ENV LANG C.UTF-8
 ENV LC_ALL C.UTF-8
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONFAULTHANDLER 1
+ENV PYTHONUNBUFFERED 1
 
 
 FROM base AS python-deps
 
 # Install pipenv and compilation dependencies
 RUN pip install pipenv
-RUN apt-get update && apt-get install -y --no-install-recommends gcc
+RUN apt-get update && apt-get install -y --no-install-recommends gcc python-dev libpq-dev
 
 # Install python dependencies in /.venv
 COPY Pipfile .
@@ -24,6 +25,7 @@ FROM base AS runtime
 # Copy virtual env from python-deps stage
 COPY --from=python-deps /.venv /.venv
 ENV PATH="/.venv/bin:$PATH"
+RUN apt-get update && apt-get install -y --no-install-recommends postgresql-client
 
 # Create and switch to a new user
 RUN useradd --create-home appuser
@@ -33,5 +35,4 @@ USER appuser
 # Install application into container
 COPY . .
 
-# TODO CHANGE THIS
-ENTRYPOINT ["python", "server.py"]
+ENTRYPOINT ["python", "-m", "flask", "run", "--host=0.0.0.0"]

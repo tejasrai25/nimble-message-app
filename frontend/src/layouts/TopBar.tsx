@@ -1,8 +1,9 @@
 import * as React from 'react';
 import { AppBar, Avatar, IconButton, Menu, MenuItem, Toolbar, Tooltip, Typography } from '@mui/material';
 import { User } from '../models';
+import { logout } from '../auth';
 
-export default ({ user }: { user: null | User }) => {
+const TopBar = ({ user }: { user: null | User }): JSX.Element => {
     const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
     const handleCloseUserMenu = () => {
         setAnchorElUser(null);
@@ -23,7 +24,7 @@ export default ({ user }: { user: null | User }) => {
                         aria-haspopup="true"
                         color="inherit"
                     >
-                        <Avatar>{user?.name}</Avatar>
+                        <Avatar>{user?.name[0]}</Avatar>
                     </IconButton>
                 </Tooltip>
                 <Menu
@@ -42,7 +43,11 @@ export default ({ user }: { user: null | User }) => {
                     open={Boolean(anchorElUser)}
                     onClose={handleCloseUserMenu}
                 >
-                    <MenuItem onClick={handleCloseUserMenu}>
+                    <MenuItem
+                        onClick={() => {
+                            logout()
+                            handleCloseUserMenu()
+                        }}>
                         <Typography textAlign="center">Logout</Typography>
                     </MenuItem>
                 </Menu>
@@ -58,3 +63,5 @@ export default ({ user }: { user: null | User }) => {
         </AppBar>
     )
 }
+
+export default TopBar

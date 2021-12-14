@@ -1,38 +1,35 @@
 import * as React from 'react';
-import { Avatar, Grid, List, ListItem, ListItemAvatar, ListItemButton, ListItemText, Paper, Stack } from '@mui/material';
+import { Avatar, Grid, List, ListItem, ListItemAvatar, ListItemButton, ListItemText, Stack } from '@mui/material';
 import { User } from '../models';
+import { authFetch } from '../auth';
 
-export default () => {
-    const users: User[] = [
+const ContactList = (
+    { selectedContact, setSelectedContact }:
         {
-            id: 1,
-            name: 'Mike Whitaker',
-            username: 'mike'
-        },
-        {
-            id: 2,
-            name: 'Sabreesh Chinta',
-            username: 'sabreesh'
-        },
-        {
-            id: 3,
-            name: 'Simon Kalouche',
-            username: 'simon'
-        },
-    ]
-    const [selected, setSelected] = React.useState('');
+            selectedContact: string,
+            setSelectedContact: React.Dispatch<React.SetStateAction<string>>
+        }): JSX.Element => {
+
+    const [contacts, setContacts] = React.useState<User[]>([]);
+
+    React.useEffect(() => {
+        authFetch('http://localhost:5000/api/users')
+            .then(r => r.json())
+            .then(users => setContacts(users))
+    }, [])
+
     return (
         <Grid container>
             <Grid item xs={12}>
                 <Stack spacing={0} style={{ maxHeight: '90vh', margin: '0em', overflow: 'auto' }}>
                     <List>
-                        {users.map((user) => (
-                            <ListItem key={`contact-${user.username}`} disablePadding>
-                                <ListItemButton selected={user.username === selected} onClick={() => { setSelected(user.username) }}>
+                        {contacts.map((contact) => (
+                            <ListItem key={`contact-${contact.username}`} disablePadding>
+                                <ListItemButton selected={contact.username === selectedContact} onClick={() => { setSelectedContact(contact.username) }}>
                                     <ListItemAvatar>
-                                        <Avatar>{user.name ? user.name[0] : 'U'}</Avatar>
+                                        <Avatar>{contact.name ? contact.name[0] : 'U'}</Avatar>
                                     </ListItemAvatar>
-                                    <ListItemText primary={user.name} secondary={user.username} />
+                                    <ListItemText primary={contact.name} secondary={contact.username} />
                                 </ListItemButton>
                             </ListItem>
                         ))}
@@ -42,3 +39,5 @@ export default () => {
         </Grid>
     )
 }
+
+export default ContactList
