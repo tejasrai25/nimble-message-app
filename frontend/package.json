@@ -68,6 +68,7 @@
     "@electron-forge/maker-rpm": "^6.0.0-beta.61",
     "@electron-forge/maker-squirrel": "^6.0.0-beta.61",
     "@electron-forge/maker-zip": "^6.0.0-beta.61",
+    "@electron-forge/plugin-auto-unpack-natives": "^6.0.0-beta.61",
     "@electron-forge/plugin-webpack": "^6.0.0-beta.61",
     "@types/react": "^17.0.37",
     "@types/react-dom": "^17.0.11",
@@ -77,10 +78,13 @@
     "css-loader": "^6.5.1",
     "electron": "16.0.4",
     "electron-devtools-installer": "^3.2.0",
+    "electron-rebuild": "^3.2.5",
     "eslint": "^7.32.0",
     "eslint-plugin-import": "^2.25.3",
     "fork-ts-checker-webpack-plugin": "^6.5.0",
     "node-loader": "^2.0.0",
+    "os-browserify": "^0.3.0",
+    "path-browserify": "^1.0.1",
     "style-loader": "^3.3.1",
     "ts-loader": "^9.2.6",
     "typescript": "^4.5.3"
@@ -91,6 +95,7 @@
     "@mui/material": "^5.2.3",
     "electron-squirrel-startup": "^1.0.0",
     "react": "^17.0.2",
-    "react-dom": "^17.0.2"
+    "react-dom": "^17.0.2",
+    "zeromq": "^6.0.0-beta.6"
   }
 }

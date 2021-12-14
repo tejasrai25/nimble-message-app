@@ -11,12 +11,18 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "paths": {
-      "*": ["node_modules/*"]
+      "*": [
+        "node_modules/*"
+      ]
     },
     "jsx": "react",
-    "lib": ["es6", "dom"],
+    "lib": [
+      "es6",
+      "dom"
+    ],
     "noImplicitThis": true,
-    "strictNullChecks": true
+    "strictNullChecks": true,
+    "target": "esnext"
   },
   "include": [
     "src/**/*"

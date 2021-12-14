@@ -1,8 +1,11 @@
 import { Button, Grid, Stack, TextField } from '@mui/material';
 import * as React from 'react';
+import { loginUser } from '../zmq';
 
 
 export default () => {
+    const [username, setUsername] = React.useState('');
+    const [password, setPassword] = React.useState('');
     const [register, setRegister] = React.useState(false);
     const registerUser = () => { setRegister(false) }
     return (
@@ -31,13 +34,22 @@ export default () => {
                     <TextField
                         label="Username"
                         variant="filled"
+                        value={username}
+                        onChange={(event) => { setUsername(event.target.value) }}
                     />
                     <TextField
                         label="Password"
                         variant="filled"
                         type={'password'}
+                        value={password}
+                        onChange={(event) => { setPassword(event.target.value) }}
                     />
-                    {!register && <Button variant='contained'>Login</Button>}
+                    {!register && <Button
+                        variant='contained'
+                        onClick={() => { loginUser({ username, password }) }}
+                    >
+                        Login
+                    </Button>}
                     <Button
                         variant={register ? 'contained' : undefined}
                         onClick={() => { register ? registerUser() : setRegister(true) }}
