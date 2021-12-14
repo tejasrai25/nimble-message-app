@@ -26,31 +26,34 @@ def after_request(response):
     return response
 
 
-@app.route("/login", methods=["POST"])
+@app.route('/login', methods=['POST'])
 def login():
-    """
+    '''
     Logs a user in by parsing a POST request containing user credentials and
     issuing a JWT token.
-    """
+    '''
     req = request.get_json(force=True)
-    username = req.get("username", None)
-    password = req.get("password", None)
+    username = req.get('username', None)
+    password = req.get('password', None)
     user = guard.authenticate(username, password)
-    ret = {"access_token": guard.encode_jwt_token(user)}
+    ret = {'access_token': guard.encode_jwt_token(user)}
     return ret, 200
 
 
-@app.route("/api/users", methods=["POST"])
+@app.route('/api/users', methods=['POST'])
 def register():
+    '''
+    Create a new user
+    '''
     req = request.get_json(force=True)
-    username = req.get("username")
-    password = req.get("password")
-    name = req.get("name")
+    username = req.get('username')
+    password = req.get('password')
+    name = req.get('name')
     try:
         user = User.create(username=username,
                            password=guard.hash_password(password),
                            name=name)
-        return {'username': user.username, 'name': user.name}, 201
+        return {'id': user.id, 'username': user.username, 'name': user.name}, 201
     except IntegrityError:
         return {'error': 'IntegrityError', 'message': 'The username is already in use'}, 400
 
